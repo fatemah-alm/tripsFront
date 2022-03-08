@@ -21,7 +21,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="MyProfile"
         component={ProfileNavigator}
         options={{
           tabBarLabel: "My Profile",
