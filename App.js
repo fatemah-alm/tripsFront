@@ -2,13 +2,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
 import { StyleSheet } from "react-native";
-import RootNavigator from "./components/navigation";
+import TabNavigator from "./components/navigation/TabNavigator";
 
 export default function App() {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <RootNavigator />
+        <TabNavigator />
         <StatusBar style="auto" />
       </NavigationContainer>
     </NativeBaseProvider>
