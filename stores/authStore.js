@@ -20,6 +20,28 @@ class AuthStore {
     }
   };
 
+  signin = async (userData, navigation) => {
+    try {
+      const response = await instance.post("/user/signin", userData);
+      const { token } = response.data;
+      this.setUser(token);
+      navigation.replace("Profile");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  signout = async (navigation) => {
+    try {
+      instance.defaults.headers.common.Authorization = null;
+      this.user = null;
+      AsyncStorage.removeItem("token");
+      navigation.replace("Signin");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   setUser = async (token) => {
     try {
       const decodedToken = decode(token);
@@ -30,7 +52,24 @@ class AuthStore {
       console.log(error);
     }
   };
+
+  checkForToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        const decodedToken = decode(token);
+        if (Date.now() < decodedToken.exp) {
+          this.setUser(token);
+        } else {
+          this.signout();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 const authStore = new AuthStore();
+authStore.checkForToken();
 export default authStore;

@@ -1,10 +1,74 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Button, VStack } from "native-base";
+import authStore from "../../stores/authStore";
 
-const Signin = () => {
+const Signin = ({ navigation }) => {
+  if (authStore.user) navigation.navigate("Profile");
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+  const handleSubmit = () => {
+    authStore.signin(user, navigation);
+  };
   return (
-    <SafeAreaView>
-      <Text>Signin</Text>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <VStack style={{ width: "100%", padding: 10 }}>
+        <Text
+          style={{
+            alignSelf: "center",
+            fontSize: 30,
+            fontWeight: "bold",
+            textTransform: "uppercase",
+          }}
+        >
+          Sign in
+        </Text>
+        <TextInput
+          style={{
+            height: 40,
+            borderColor: "#aaa",
+            borderWidth: 1,
+            borderRadius: 20,
+            paddingHorizontal: 12,
+            margin: 10,
+          }}
+          placeholder=" Username"
+          value={user.username}
+          onChangeText={(username) => setUser({ ...user, username })}
+        />
+        <TextInput
+          style={{
+            height: 40,
+            borderColor: "#aaa",
+            borderWidth: 1,
+            borderRadius: 20,
+            paddingHorizontal: 12,
+            margin: 10,
+          }}
+          placeholder="Password"
+          secureTextEntry
+          value={user.password}
+          onChangeText={(password) => setUser({ ...user, password })}
+        />
+        <Button
+          m={3}
+          colorScheme="blue"
+          onPress={handleSubmit}
+          borderRadius={30}
+        >
+          signin
+        </Button>
+      </VStack>
     </SafeAreaView>
   );
 };

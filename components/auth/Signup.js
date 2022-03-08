@@ -5,8 +5,8 @@ import { Button, VStack } from "native-base";
 import authStore from "../../stores/authStore";
 import { useNavigation } from "@react-navigation/native";
 
-const Signup = () => {
-  const navigation = useNavigation();
+const Signup = ({ navigation }) => {
+  if (authStore.user) navigation.navigate("Profile");
   const [user, setUser] = useState({
     username: "",
     password: "",

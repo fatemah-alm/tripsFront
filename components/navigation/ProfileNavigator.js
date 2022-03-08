@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 const ProfileNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Signup"
+      initialRouteName="Profile"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Profile" component={Profile} />
