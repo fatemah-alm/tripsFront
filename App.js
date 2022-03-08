@@ -1,0 +1,25 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import { NativeBaseProvider } from "native-base";
+import { StyleSheet } from "react-native";
+import RootNavigator from "./components/navigation";
+
+export default function App() {
+  return (
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <RootNavigator />
+        <StatusBar style="auto" />
+      </NavigationContainer>
+    </NativeBaseProvider>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
