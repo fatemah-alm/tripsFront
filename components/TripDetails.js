@@ -1,14 +1,14 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Home = () => {
+const TripDetails = () => {
   return (
     <SafeAreaView>
-      <Text>Home</Text>
+      <Text>TripDetails</Text>
     </SafeAreaView>
   );
 };
 
-export default Home;
+export default TripDetails;
 
 const styles = StyleSheet.create({});
