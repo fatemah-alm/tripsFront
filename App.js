@@ -9,7 +9,7 @@ export default function App() {
     <NativeBaseProvider>
       <NavigationContainer>
         <TabNavigator />
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
       </NavigationContainer>
     </NativeBaseProvider>
   );
