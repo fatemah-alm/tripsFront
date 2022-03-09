@@ -11,8 +11,6 @@ const Profile = ({ navigation, user }) => {
   const profile = profileStore.profiles.find(
     (profile) => profile._id === owner.profile
   );
-  console.log("profiles", profile);
-  console.log(owner);
   if (!authStore.user) navigation.navigate("Signin");
   return (
     <VStack style={styles.container}>

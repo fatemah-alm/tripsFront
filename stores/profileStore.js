@@ -11,7 +11,6 @@ class ProfileStore {
     try {
       const response = await instance.get("/profiles");
       this.profiles = response.data;
-      console.log(this.profiles);
     } catch (error) {
       console.log("ProfileStore -> fetchProfiles -> error", error);
     }
@@ -23,7 +22,6 @@ class ProfileStore {
       for (const key in updatedProfile)
         formData.append(key, updatedProfile[key]);
 
-      console.log("!!!", formData);
       const res = await instance.put(`/profiles/${profileId}`, formData);
       this.profiles = this.profiles.map((profile) =>
         profile._id === profileId ? res.data.payload : profile

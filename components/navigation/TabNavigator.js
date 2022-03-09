@@ -27,7 +27,7 @@ const TabNavigator = () => {
         name="HomeNavigator"
         component={HomeNavigator}
         options={{
-          tabBarLabel: "MyHome",
+          tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
           ),
