@@ -11,12 +11,8 @@ const Profile = ({ navigation, user }) => {
 
   const [owner, setOwner] = useState(user ? user : authStore.user);
 
-  // const [profile, setProfile] = useState(
-  //   profileStore.profiles.find((profile) => profile._id == owner.profile._id)
-  // );
-
   const profile = profileStore.profiles.find(
-    (profile) => profile._id == owner.profile._id
+    (profile) => profile._id == owner.profile
   );
 
   console.log("11111", owner);

@@ -19,7 +19,7 @@ const EditProfile = ({ navigation }) => {
   const [user, setUser] = useState(authStore.user);
 
   const profile = profileStore.profiles.find(
-    (profile) => profile._id == user.profile._id
+    (profile) => profile._id == user.profile
   );
   console.log("user", user.profile);
   console.log("profile", profile);

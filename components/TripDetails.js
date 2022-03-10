@@ -70,8 +70,7 @@ const TripDetails = ({ route }) => {
       >
         Like!
       </Button>
-    </SafeAreaView>
-
+    </SafeAreaView>*/
   );
 };
 
