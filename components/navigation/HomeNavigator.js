@@ -3,6 +3,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "../Profile";
 import Home from "../Home";
+import TripDetails from "../TripDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,11 @@ const HomeNavigator = () => {
         name="Home"
         component={Home}
         // options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Trip"
+        component={TripDetails}
+        options={{ headerShown: false }}
       />
       <Stack.Screen name="UserProfile" component={Profile} />
     </Stack.Navigator>
