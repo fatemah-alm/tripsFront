@@ -1,15 +1,17 @@
 import { SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
 import { Button } from "native-base";
 import { HStack, VStack } from "native-base";
 import { baseUrl } from "../stores/instance";
 import { useNavigation } from "@react-navigation/native";
 
-const TripDetails = ({ route }) => {
-  const { trip } = route.params;
+const TripDetails = (h) => {
+  console.log(h);
+  const { trip } = h.route.params;
+
   const navigation = useNavigation();
   console.log("!!!!", trip.owner);
   return (
+    // <Text>hi</Text>
     <SafeAreaView style={styles.container}>
       <VStack style={styles.header}>
         <Image
@@ -29,48 +31,46 @@ const TripDetails = ({ route }) => {
           >
             By: {trip.owner.username}
           </Text>
-          <Text style={styles.desc}>{trip.description}</Text>
-          <Text style={styles.owner}>By: {trip.owner.profile}</Text>
+
+          {/* <Text>By: {trip.owner}</Text> */}
+          <Text style={styles.desc}>description: {trip.description}</Text>
         </VStack>
       </VStack>
-      {/* <View style={styles.body}>
-        <ProductList products={shop.products} />
-      </View> */}
+
+      <SafeAreaView>
+        <Button
+          m={3}
+          colorScheme="amber"
+          variant="outline"
+          onPress={() => tripStore.deleteTrip()}
+          borderRadius={30}
+          flex={1}
+        >
+          Delete
+        </Button>
+        <Button
+          m={3}
+          colorScheme="amber"
+          variant="outline"
+          onPress={() => tripStore.updateTrip()}
+          borderRadius={30}
+          flex={1}
+        >
+          Update
+        </Button>
+        <Button
+          m={3}
+          colorScheme="amber"
+          variant="outline"
+          onPress={() => tripStore.likeTrip()}
+          borderRadius={30}
+          flex={1}
+        >
+          Like!
+        </Button>
+      </SafeAreaView>
     </SafeAreaView>
 
-    // <SafeAreaView>
-    /* <Text>TripDetails</Text>
-      <Button
-        m={3}
-        colorScheme="amber"
-        variant="outline"
-        onPress={() => tripStore.deleteTrip()}
-        borderRadius={30}
-        flex={1}
-      >
-        Delete
-      </Button>
-      <Button
-        m={3}
-        colorScheme="amber"
-        variant="outline"
-        onPress={() => tripStore.updateTrip()}
-        borderRadius={30}
-        flex={1}
-      >
-        Update
-      </Button>
-      <Button
-        m={3}
-        colorScheme="amber"
-        variant="outline"
-        onPress={() => tripStore.likeTrip()}
-        borderRadius={30}
-        flex={1}
-      >
-        Like!
-      </Button>
-    </SafeAreaView>*/
   );
 };
 
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     justifyContent: "center",
-    // backgroundColor: "#fff",
+    backgroundColor: "#fff",
   },
   header: {
     flex: 1,
