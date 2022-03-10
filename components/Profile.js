@@ -8,22 +8,38 @@ import { observer } from "mobx-react";
 
 const Profile = ({ navigation, user }) => {
   const [owner, setOwner] = useState(user ? user : authStore.user);
-  const profile = profileStore.profiles.find(
-    (profile) => profile._id === owner.profile
+  const [profile, setProfile] = useState(
+    profileStore.profiles.find((profile) => profile._id === owner.profile)
   );
+  console.log("first", profile);
+  if (profileStore.profiles === null) return <Text>Loading...</Text>;
+  if (!profile) return <Text>Loading...</Text>;
   if (!authStore.user) navigation.navigate("Signin");
+  // console.log(profile.image);
   return (
     <VStack style={styles.container}>
       <SafeAreaView />
+
+      <Button
+        colorScheme="amber"
+        variant="ghost"
+        m={3}
+        alignSelf="flex-end"
+        onPress={() => authStore.signout(navigation)}
+      >
+        Logout
+      </Button>
       <VStack style={styles.profileInfo}>
         <Image
           source={{
-            uri: "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+            uri: profile.image
+              ? baseUrl + profile.image
+              : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
           }}
           style={styles.profileImg}
         />
         <Text style={[styles.text, styles.title]}>{owner.username}</Text>
-        {/* <Text style={styles.text}>{profile.trips.length} Trips</Text> */}
+        <Text style={styles.text}>{profile.trips.length} Trips</Text>
         <Text style={styles.text}>{profile.bio}</Text>
         <HStack justifyContent="center" mx={2}>
           <Button
@@ -34,25 +50,10 @@ const Profile = ({ navigation, user }) => {
           >
             Edit Profile
           </Button>
-          <Button
-            colorScheme="amber"
-            m={1}
-            flex={1}
-            onPress={() => navigation.navigate("AddTrip")}
-          >
-            Add Trip
-          </Button>
-          <Button
-            colorScheme="amber"
-            m={1}
-            flex={1}
-            onPress={() => authStore.signout(navigation)}
-          >
-            signout
-          </Button>
         </HStack>
       </VStack>
       {/* <Text>{profile.image}</Text> */}
+      <View flex={1}></View>
     </VStack>
   );
 };

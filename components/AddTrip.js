@@ -1,15 +1,22 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import React, { useState } from "react";
 import { VStack, Button, HStack } from "native-base";
-import { NavigationContainer } from "@react-navigation/native";
+import tripStore from "../stores/tripStore";
+import profileStore from "../stores/profileStore";
+import authStore from "../stores/authStore";
 
 const AddTrip = ({ navigation }) => {
+  const profile = profileStore.profiles.find(
+    (profile) => profile._id === authStore.user.profile
+  );
   const [trip, setTrip] = useState({
     title: "",
     description: "",
     owner: "",
   });
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    tripStore.createTrip(trip, profile._id, navigation);
+  };
   return (
     <VStack style={styles.container}>
       <Text style={[styles.text, styles.label]}>Title</Text>

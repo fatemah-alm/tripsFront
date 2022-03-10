@@ -5,7 +5,7 @@ class ProfileStore {
   constructor() {
     makeAutoObservable(this);
   }
-  profiles = [];
+  profiles = null;
 
   getProfiles = async () => {
     try {
@@ -16,13 +16,32 @@ class ProfileStore {
     }
   };
 
-  updateProfile = async (updatedProfile, profileId, navigation) => {
+  updateProfile = async (
+    updatedProfile,
+    uploadedImage,
+    profileId,
+    navigation
+  ) => {
     try {
       const formData = new FormData();
       for (const key in updatedProfile)
         formData.append(key, updatedProfile[key]);
 
-      const res = await instance.put(`/profiles/${profileId}`, formData);
+      formData.append("image", {
+        type: uploadedImage.type,
+        uri: uploadedImage.uri,
+        name: uploadedImage.uri.split("/").pop(),
+      });
+      console.log("updatedProfile", formData);
+
+      const res = await instance.put(`/profiles/${profileId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        transformRequest: (data, headers) => {
+          return formData; // this is doing the trick
+        },
+      });
       this.profiles = this.profiles.map((profile) =>
         profile._id === profileId ? res.data.payload : profile
       );

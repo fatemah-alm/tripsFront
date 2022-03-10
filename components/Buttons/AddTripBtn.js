@@ -3,20 +3,14 @@ import React from "react";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const AddTripBtn = () => {
-  const navigation = useNavigation();
-  const handlePress = () => {
-    navigation.navigate("MyProfile", { screen: "AddTrip" });
-  };
+const AddTripBtn = ({ color, size }) => {
   return (
-    <Pressable onPress={handlePress}>
-      <Feather
-        name="plus-square"
-        size={24}
-        color="black"
-        style={{ marginRight: 12 }}
-      />
-    </Pressable>
+    <Feather
+      name="plus-square"
+      size={size}
+      color={color}
+      // style={{ marginRight: 12 }}
+    />
   );
 };
 
