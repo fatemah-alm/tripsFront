@@ -70,7 +70,6 @@ const TripDetails = (h) => {
         </Button>
       </SafeAreaView>
     </SafeAreaView>
-
   );
 };
 
