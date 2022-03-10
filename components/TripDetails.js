@@ -17,6 +17,16 @@ const TripDetails = () => {
       >
         Delete
       </Button>
+      <Button
+        m={3}
+        colorScheme="amber"
+        variant="outline"
+        onPress={() => tripStore.updateTrip()}
+        borderRadius={30}
+        flex={1}
+      >
+        Update
+      </Button>
     </SafeAreaView>
   );
 };
