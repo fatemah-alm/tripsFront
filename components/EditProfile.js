@@ -17,12 +17,16 @@ import { observer } from "mobx-react-lite";
 
 const EditProfile = ({ navigation }) => {
   const [user, setUser] = useState(authStore.user);
-  const [profile, setProfile] = useState(
-    profileStore.profiles.find((profile) => profile._id === user.profile)
+
+  const profile = profileStore.profiles.find(
+    (profile) => profile._id == user.profile._id
   );
   console.log("user", user.profile);
   console.log("profile", profile);
-  const [updatedProfile, setUpdatedProfile] = useState({ bio: "" });
+  const [updatedProfile, setUpdatedProfile] = useState({
+    bio: profile.bio,
+    image: profile.image,
+  });
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
@@ -62,7 +66,7 @@ const EditProfile = ({ navigation }) => {
           numberOfLines={4}
           placeholder="bio"
           placeholderTextColor="#787B82"
-          value={updatedProfile.bio}
+          value={updatedProfile.bio || profile.bio}
           onChangeText={(bio) => setUpdatedProfile({ ...updatedProfile, bio })}
         />
         <Button
@@ -76,9 +80,9 @@ const EditProfile = ({ navigation }) => {
           Select Image
         </Button>
         <View style={{ padding: 12, borderRadius: 15, overflow: "hidden" }}>
-          {updatedProfile.image && (
+          {image && (
             <Image
-              source={{ uri: updatedProfile.image }}
+              source={{ uri: image.uri }}
               style={{
                 width: "100%",
                 height: "70%",
