@@ -2,8 +2,9 @@ import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import { VStack } from "native-base";
 import { baseUrl } from "../stores/instance";
-
+import { useNavigation } from "@react-navigation/native";
 const Trip = ({ trip }) => {
+  const navigation = useNavigation();
   return (
     <Pressable
       style={styles.col}
