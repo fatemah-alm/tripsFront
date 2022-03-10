@@ -3,9 +3,8 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "native-base";
 import ProfileNavigator from "./ProfileNavigator";
-import Home from "../Home";
 import HomeNavigator from "./HomeNavigator";
-import authStore from "../../stores/authStore";
+import AddTrip from "../AddTrip";
 import AddTripBtn from "../Buttons/AddTripBtn";
 
 const Tab = createBottomTabNavigator();
@@ -17,7 +16,7 @@ const TabNavigator = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: "#0A111F",
-          padding: 10,
+          padding: 0,
         },
         tabBarActiveTintColor: "#FCA311",
         tabBarInactiveTintColor: "#E5E5E5",
@@ -31,6 +30,26 @@ const TabNavigator = () => {
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
           ),
+        }}
+      />
+      <Tab.Screen
+        name="AddTrip"
+        component={AddTrip}
+        options={{
+          tabBarLabelStyle: { display: "none" },
+          tabBarItemStyle: {
+            backgroundColor: "#FCA311",
+            borderRadius: 50,
+          },
+          tabBarIcon: ({ color, size }) => (
+            <AddTripBtn color={color} size={size} />
+          ),
+          tabBarActiveTintColor: "#0A111F",
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#0A111F",
+          },
+          headerTintColor: "#E5E5E5",
         }}
       />
       <Tab.Screen

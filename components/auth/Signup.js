@@ -21,7 +21,7 @@ const Signup = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView />
       <VStack style={{ width: "100%", padding: 10 }}>
-        <Text style={[styles.text, styles.title]}>Sign up</Text>
+        <Text style={[styles.text, styles.title]}>Register</Text>
         <TextInput
           style={styles.input}
           placeholder="First Name"
@@ -65,12 +65,12 @@ const Signup = ({ navigation }) => {
           onPress={handleSubmit}
           borderRadius={30}
         >
-          signup
+          Register
         </Button>
         <HStack justifyContent="center">
           <Text style={styles.text}> Have account already ?</Text>
           <Pressable onPress={() => navigation.navigate("Signin")}>
-            <Text style={styles.link}> Signin</Text>
+            <Text style={styles.link}> Login</Text>
           </Pressable>
         </HStack>
       </VStack>

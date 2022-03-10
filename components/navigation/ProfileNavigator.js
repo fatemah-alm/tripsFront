@@ -18,7 +18,7 @@ const ProfileNavigator = () => {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Signin" component={Signin} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="AddTrip"
         component={AddTrip}
         options={{
@@ -28,7 +28,7 @@ const ProfileNavigator = () => {
           },
           headerTintColor: "#E5E5E5",
         }}
-      />
+      /> */}
       <Stack.Screen
         name="EditProfile"
         component={EditProfile}
