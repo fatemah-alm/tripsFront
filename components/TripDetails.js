@@ -3,9 +3,12 @@ import React from "react";
 import { Button } from "native-base";
 import { HStack, VStack } from "native-base";
 import { baseUrl } from "../stores/instance";
+import { useNavigation } from "@react-navigation/native";
 
 const TripDetails = ({ route }) => {
   const { trip } = route.params;
+  const navigation = useNavigation();
+  console.log("!!!!", trip.owner);
   return (
     <SafeAreaView style={styles.container}>
       <VStack style={styles.header}>
@@ -15,8 +18,19 @@ const TripDetails = ({ route }) => {
         ></Image>
         <VStack>
           <Text style={styles.name}>{trip.title}</Text>
-          <Text style={styles.owner}>By: {trip.owner.username}</Text>
+          <Text
+            style={styles.owner}
+            onPress={() =>
+              navigation.navigate("MyProfile", {
+                screen: "profile",
+                user: trip.owner.username,
+              })
+            }
+          >
+            By: {trip.owner.username}
+          </Text>
           <Text style={styles.desc}>{trip.description}</Text>
+          <Text style={styles.owner}>By: {trip.owner.profile}</Text>
         </VStack>
       </VStack>
       {/* <View style={styles.body}>
