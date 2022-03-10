@@ -27,6 +27,16 @@ const TripDetails = () => {
       >
         Update
       </Button>
+      <Button
+        m={3}
+        colorScheme="amber"
+        variant="outline"
+        onPress={() => tripStore.likeTrip()}
+        borderRadius={30}
+        flex={1}
+      >
+        Like!
+      </Button>
     </SafeAreaView>
   );
 };

@@ -7,6 +7,7 @@ class TripStore {
     makeAutoObservable(this);
   }
   trips = [];
+  likes = [];
 
   fetchTrips = async () => {
     try {
@@ -19,11 +20,11 @@ class TripStore {
   };
   deleteTrip = async (id) => {
     try {
-    this.trips = this.trips.filter((trip) => trip._id !== id);
-     await instance.delete(`/api/trips/${id}`);
+      this.trips = this.trips.filter((trip) => trip._id !== id);
+      await instance.delete(`/api/trips/${id}`);
+    } catch (error) {
+      console.log(error);
     }
-     catch (error) {
-      console.log(error)
   };
   updateTrip = async (updatedTrip, id) => {
     try {
@@ -34,6 +35,9 @@ class TripStore {
     } catch (error) {
       console.log(error);
     }
+  };
+  likeTrip = async (id) => {
+    this.likes.push(id);
   };
 }
 
