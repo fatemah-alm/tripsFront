@@ -7,6 +7,8 @@ import profileStore from "../stores/profileStore";
 import { observer } from "mobx-react";
 
 const Profile = ({ navigation, user }) => {
+  // const { user } = route.params;
+
   const [owner, setOwner] = useState(user ? user : authStore.user);
   const profile = profileStore.profiles.find(
     (profile) => profile._id === owner.profile
