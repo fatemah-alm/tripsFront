@@ -14,21 +14,18 @@ import profileStore from "../stores/profileStore";
 
 import * as ImagePicker from "expo-image-picker";
 import { observer } from "mobx-react-lite";
+import { baseUrl } from "../stores/instance";
 
 const EditProfile = ({ navigation }) => {
   const [user, setUser] = useState(authStore.user);
 
-  const profile = profileStore.profiles.find(
-    (profile) => profile._id == user.profile
+  const [profile, setProfile] = useState(
+    profileStore.profiles.find((profile) => profile._id == user.profile._id)
   );
-  console.log("user", user.profile);
-  console.log("profile", profile);
   const [updatedProfile, setUpdatedProfile] = useState({
     bio: profile.bio,
-    image: profile.image,
   });
   const [image, setImage] = useState(null);
-
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -37,8 +34,6 @@ const EditProfile = ({ navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.cancelled) {
       setImage(result);
@@ -51,14 +46,6 @@ const EditProfile = ({ navigation }) => {
   return (
     <VStack style={styles.container}>
       <ScrollView style={{ margin: 2 }}>
-        <Text style={[styles.text, styles.label]}>username</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Title"
-          placeholderTextColor="#787B82"
-          value={user.username}
-          onChangeText={(username) => setUser({ ...user, username })}
-        />
         <Text style={[styles.text, styles.label]}>bio</Text>
         <TextInput
           style={styles.inputLg}
@@ -69,18 +56,14 @@ const EditProfile = ({ navigation }) => {
           value={updatedProfile.bio || profile.bio}
           onChangeText={(bio) => setUpdatedProfile({ ...updatedProfile, bio })}
         />
-        <Button
-          m={3}
-          colorScheme="amber"
-          onPress={pickImage}
-          borderRadius={30}
-          variant="outline"
-          size="sm"
+        <View
+          style={{
+            paddingHorizontal: 12,
+            borderRadius: 15,
+            overflow: "hidden",
+          }}
         >
-          Select Image
-        </Button>
-        <View style={{ padding: 12, borderRadius: 15, overflow: "hidden" }}>
-          {image && (
+          {image ? (
             <Image
               source={{ uri: image.uri }}
               style={{
@@ -90,16 +73,29 @@ const EditProfile = ({ navigation }) => {
                 margin: 0,
               }}
             />
+          ) : (
+            <Image
+              source={{ uri: baseUrl + profile.image }}
+              style={{
+                width: "100%",
+                height: "70%",
+                borderRadius: 5,
+                margin: 0,
+              }}
+            />
           )}
+          <Button
+            my={3}
+            colorScheme="amber"
+            onPress={pickImage}
+            variant="outline"
+            size="sm"
+          >
+            Select Image
+          </Button>
         </View>
         <HStack>
-          <Button
-            m={3}
-            colorScheme="amber"
-            onPress={handleSubmit}
-            borderRadius={30}
-            flex={1}
-          >
+          <Button m={3} colorScheme="amber" onPress={handleSubmit} flex={1}>
             Update
           </Button>
           <Button
@@ -107,7 +103,6 @@ const EditProfile = ({ navigation }) => {
             colorScheme="amber"
             variant="outline"
             onPress={() => navigation.goBack()}
-            borderRadius={30}
             flex={1}
           >
             cancel
@@ -144,7 +139,7 @@ const styles = StyleSheet.create({
     borderColor: "#E5E5E5",
     color: "#E5E5E5",
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 5,
     paddingHorizontal: 12,
     margin: 12,
   },
@@ -153,7 +148,7 @@ const styles = StyleSheet.create({
     borderColor: "#E5E5E5",
     color: "#E5E5E5",
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 5,
     paddingHorizontal: 12,
     paddingVertical: 20,
     margin: 12,

@@ -14,8 +14,6 @@ const TripDetails = (h) => {
     authStore.user ? authStore.user : { username: "anonymous" }
   );
   const navigation = useNavigation();
-  console.log("!!!!", trip.owner);
-  console.log("%%%%", authStore.user);
   const handleDelete = () => {
     tripStore.deleteTrip(trip._id, navigation);
   };
@@ -30,53 +28,18 @@ const TripDetails = (h) => {
           <Text style={styles.name}>{trip.title}</Text>
           <Text
             style={styles.owner}
-            onPress={() => navigation.navigate("UserProfile", { trip })}
+            onPress={() =>
+              navigation.navigate("UserProfile", { user: trip.owner })
+            }
           >
             By: {trip.owner.username}
           </Text>
-
-          {/* <Text>By: {trip.owner}</Text> */}
-          <Text style={styles.desc}>description: {trip.description}</Text>
+          <Text style={styles.desc}>{trip.description}</Text>
         </VStack>
       </VStack>
-
-      <SafeAreaView>
-        {trip.owner.username === user.username ? (
-          <Button
-            m={3}
-            colorScheme="amber"
-            variant="outline"
-            onPress={handleDelete}
-            borderRadius={30}
-            flex={1}
-          >
-            Delete
-          </Button>
-        ) : (
-          false
-        )}
-
-        <Button
-          m={3}
-          colorScheme="amber"
-          variant="outline"
-          onPress={() => tripStore.updateTrip()}
-          borderRadius={30}
-          flex={1}
-        >
-          Update
-        </Button>
-        <Button
-          m={3}
-          colorScheme="amber"
-          variant="outline"
-          onPress={() => tripStore.likeTrip()}
-          borderRadius={30}
-          flex={1}
-        >
-          Like!
-        </Button>
-      </SafeAreaView>
+      {/* <View style={styles.body}>
+        <ProductList products={shop.products} />
+      </View> */}
     </SafeAreaView>
   );
 };
@@ -88,7 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     justifyContent: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#14213D",
   },
   header: {
     flex: 1,
@@ -98,8 +61,8 @@ const styles = StyleSheet.create({
     borderColor: "#aaa",
   },
   img: {
-    width: 80,
-    height: 80,
+    width: "100%",
+    height: 200,
     marginBottom: 10,
     borderRadius: 10,
     borderWidth: 0.2,
