@@ -50,7 +50,7 @@ class TripStore {
       const response = await instance.delete(`/trips/${id}`);
       // if (response) {
       // }
-      navigation.navigate("Home");
+      navigation.replace("Home");
     } catch (error) {
       console.log(error);
     }
