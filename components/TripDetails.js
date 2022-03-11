@@ -1,15 +1,24 @@
 import { SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
 import { Button } from "native-base";
+import { useState } from "react";
 import { HStack, VStack } from "native-base";
 import { baseUrl } from "../stores/instance";
 import { useNavigation } from "@react-navigation/native";
+import tripStore from "../stores/tripStore";
+import authStore from "../stores/authStore";
+import { observer } from "mobx-react";
 
 const TripDetails = (h) => {
-  console.log(h);
   const { trip } = h.route.params;
-
+  const [user, setUser] = useState(
+    authStore.user ? authStore.user : { username: "anonymous" }
+  );
   const navigation = useNavigation();
   console.log("!!!!", trip.owner);
+  console.log("%%%%", authStore.user);
+  const handleDelete = () => {
+    tripStore.deleteTrip(trip._id, navigation);
+  };
   return (
     // <Text>hi</Text>
     <SafeAreaView style={styles.container}>
@@ -24,7 +33,7 @@ const TripDetails = (h) => {
             style={styles.owner}
             onPress={() =>
               navigation.navigate("MyProfile", {
-                screen: "profile",
+                screen: "Profile",
                 user: trip.owner.username,
               })
             }
@@ -38,16 +47,21 @@ const TripDetails = (h) => {
       </VStack>
 
       <SafeAreaView>
-        <Button
-          m={3}
-          colorScheme="amber"
-          variant="outline"
-          onPress={() => tripStore.deleteTrip()}
-          borderRadius={30}
-          flex={1}
-        >
-          Delete
-        </Button>
+        {trip.owner.username === user.username ? (
+          <Button
+            m={3}
+            colorScheme="amber"
+            variant="outline"
+            onPress={handleDelete}
+            borderRadius={30}
+            flex={1}
+          >
+            Delete
+          </Button>
+        ) : (
+          false
+        )}
+
         <Button
           m={3}
           colorScheme="amber"
@@ -73,7 +87,7 @@ const TripDetails = (h) => {
   );
 };
 
-export default TripDetails;
+export default observer(TripDetails);
 
 const styles = StyleSheet.create({
   container: {
