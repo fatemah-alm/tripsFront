@@ -10,7 +10,7 @@ const Profile = ({ navigation, user }) => {
   // const { user } = route.params;
 
   const [owner, setOwner] = useState(user ? user : authStore.user);
-
+  console.log("!!!!owner", owner);
   const profile = profileStore.profiles.find(
     (profile) => profile._id == owner.profile
   );

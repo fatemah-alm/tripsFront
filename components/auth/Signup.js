@@ -6,7 +6,7 @@ import authStore from "../../stores/authStore";
 import { useNavigation } from "@react-navigation/native";
 
 const Signup = ({ navigation }) => {
-  if (authStore.user) navigation.navigate("Profile");
+  if (authStore.user) navigation.replace("Profile");
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -69,7 +69,7 @@ const Signup = ({ navigation }) => {
         </Button>
         <HStack justifyContent="center">
           <Text style={styles.text}> Have account already ?</Text>
-          <Pressable onPress={() => navigation.navigate("Signin")}>
+          <Pressable onPress={() => navigation.replace("Signin")}>
             <Text style={styles.link}> Login</Text>
           </Pressable>
         </HStack>
