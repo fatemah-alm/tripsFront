@@ -6,6 +6,7 @@ import ProfileNavigator from "./ProfileNavigator";
 import HomeNavigator from "./HomeNavigator";
 import AddTrip from "../AddTrip";
 import AddTripBtn from "../Buttons/AddTripBtn";
+import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,9 +27,9 @@ const TabNavigator = () => {
         name="HomeNavigator"
         component={HomeNavigator}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabelStyle: { display: "none" },
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size} />
+            <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
       />
@@ -56,9 +57,9 @@ const TabNavigator = () => {
         name="MyProfile"
         component={ProfileNavigator}
         options={{
-          tabBarLabel: "My Profile",
+          tabBarLabelStyle: { display: "none" },
           tabBarIcon: ({ color, size }) => (
-            <Icon name="user" color={color} size={size} />
+            <Ionicons name="person-circle-outline" size={size} color={color} />
           ),
         }}
       />

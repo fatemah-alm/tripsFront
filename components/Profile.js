@@ -1,34 +1,43 @@
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import { Button, HStack, VStack } from "native-base";
 import authStore from "../stores/authStore";
 import { baseUrl } from "../stores/instance";
 import profileStore from "../stores/profileStore";
 import { observer } from "mobx-react";
+import TripsList from "./TripsList";
 
-const Profile = ({ navigation, user }) => {
-  // const { user } = route.params;
+const Profile = ({ navigation, route, user }) => {
+  // const user = route.params.user;
+  // console.log("user", user);
 
   const [owner, setOwner] = useState(user ? user : authStore.user);
+  console.log("owner", owner);
 
   const profile = profileStore.profiles.find(
-    (profile) => profile._id == owner.profile
+    (profile) => profile._id == owner.profile._id
   );
 
-  console.log("11111", owner);
-  console.log("first", profile);
+  console.log(profile);
+
   if (profileStore.profiles === null) return <Text>Loading...</Text>;
   if (!profile) return <Text>Loading...</Text>;
   if (!authStore.user) navigation.navigate("Signin");
-  // console.log(profile.image);
   return (
-    <VStack style={styles.container}>
+    <ScrollView style={styles.container}>
       <SafeAreaView />
 
       <Button
         colorScheme="amber"
         variant="ghost"
-        m={3}
+        mr={3}
         alignSelf="flex-end"
         onPress={() => authStore.signout(navigation)}
       >
@@ -47,19 +56,23 @@ const Profile = ({ navigation, user }) => {
         <Text style={styles.text}>{profile.trips.length} Trips</Text>
         <Text style={styles.text}>{profile.bio}</Text>
         <HStack justifyContent="center" mx={2}>
-          <Button
-            colorScheme="amber"
-            m={1}
-            flex={1}
-            onPress={() => navigation.navigate("EditProfile")}
-          >
-            Edit Profile
-          </Button>
+          {owner._id === authStore.user._id && (
+            <Button
+              colorScheme="amber"
+              m={1}
+              flex={1}
+              onPress={() => navigation.navigate("EditProfile")}
+            >
+              Edit Profile
+            </Button>
+          )}
         </HStack>
       </VStack>
       {/* <Text>{profile.image}</Text> */}
-      <View flex={1}></View>
-    </VStack>
+      <View flex={1}>
+        <TripsList owner={profile} />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -73,6 +86,10 @@ const styles = StyleSheet.create({
   profileInfo: {
     width: "100%",
     alignItems: "center",
+    borderBottomColor: "#fff5",
+    borderBottomWidth: 0.5,
+    marginBottom: 10,
+    padding: 10,
   },
   profileImg: {
     width: 100,

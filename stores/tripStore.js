@@ -1,20 +1,23 @@
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
 
-
-
-
 class TripStore {
   constructor() {
     makeAutoObservable(this);
   }
   trips = [];
 
-
-  createTrip = async (newTrip, profileId, navigation) => {
+  createTrip = async (newTrip, uploadedImage, profileId, navigation) => {
     try {
       const formData = new FormData();
       for (const key in newTrip) formData.append(key, newTrip[key]);
+      if (uploadedImage) {
+        formData.append("image", {
+          type: uploadedImage.type,
+          uri: uploadedImage.uri,
+          name: uploadedImage.uri.split("/").pop(),
+        });
+      }
 
       const response = await instance.post(
         `/profiles/${profileId}/trip`,
@@ -32,7 +35,7 @@ class TripStore {
       navigation.goBack();
     } catch (error) {
       console.log(
-        "🚀 ~ file: productStore.js ~ line 16 ~ ProductStore ~ createProduct= ~ error",
+        "🚀 ~ file: TripStore.js ~ line 16 ~ TripStore ~ createTrip= ~ error",
         error
       );
     }
@@ -43,7 +46,6 @@ class TripStore {
     try {
       const tripResponse = await instance.get("/trips");
       this.trips = tripResponse.data;
-      console.log(tripResponse.data);
     } catch (error) {
       console.log("error message", error);
     }

@@ -26,13 +26,13 @@ class ProfileStore {
       const formData = new FormData();
       for (const key in updatedProfile)
         formData.append(key, updatedProfile[key]);
-
-      formData.append("image", {
-        type: uploadedImage.type,
-        uri: uploadedImage.uri,
-        name: uploadedImage.uri.split("/").pop(),
-      });
-      console.log("updatedProfile", formData);
+      if (uploadedImage) {
+        formData.append("image", {
+          type: uploadedImage.type,
+          uri: uploadedImage.uri,
+          name: uploadedImage.uri.split("/").pop(),
+        });
+      }
 
       const res = await instance.put(`/profiles/${profileId}`, formData, {
         headers: {

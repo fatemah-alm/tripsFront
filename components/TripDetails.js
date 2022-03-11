@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 const TripDetails = ({ route }) => {
   const { trip } = route.params;
   const navigation = useNavigation();
-  console.log("!!!!", trip.owner);
+  console.log("trip owner", trip.owner);
   return (
     <SafeAreaView style={styles.container}>
       <VStack style={styles.header}>
@@ -21,56 +21,18 @@ const TripDetails = ({ route }) => {
           <Text
             style={styles.owner}
             onPress={() =>
-              navigation.navigate("MyProfile", {
-                screen: "profile",
-                user: trip.owner.username,
-              })
+              navigation.navigate("UserProfile", { user: trip.owner })
             }
           >
             By: {trip.owner.username}
           </Text>
           <Text style={styles.desc}>{trip.description}</Text>
-          <Text style={styles.owner}>By: {trip.owner.profile}</Text>
         </VStack>
       </VStack>
       {/* <View style={styles.body}>
         <ProductList products={shop.products} />
       </View> */}
     </SafeAreaView>
-
-    // <SafeAreaView>
-    /* <Text>TripDetails</Text>
-      <Button
-        m={3}
-        colorScheme="amber"
-        variant="outline"
-        onPress={() => tripStore.deleteTrip()}
-        borderRadius={30}
-        flex={1}
-      >
-        Delete
-      </Button>
-      <Button
-        m={3}
-        colorScheme="amber"
-        variant="outline"
-        onPress={() => tripStore.updateTrip()}
-        borderRadius={30}
-        flex={1}
-      >
-        Update
-      </Button>
-      <Button
-        m={3}
-        colorScheme="amber"
-        variant="outline"
-        onPress={() => tripStore.likeTrip()}
-        borderRadius={30}
-        flex={1}
-      >
-        Like!
-      </Button>
-    </SafeAreaView>*/
   );
 };
 
@@ -81,7 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     justifyContent: "center",
-    // backgroundColor: "#fff",
+    backgroundColor: "#14213D",
   },
   header: {
     flex: 1,
@@ -91,8 +53,8 @@ const styles = StyleSheet.create({
     borderColor: "#aaa",
   },
   img: {
-    width: 80,
-    height: 80,
+    width: "100%",
+    height: 200,
     marginBottom: 10,
     borderRadius: 10,
     borderWidth: 0.2,

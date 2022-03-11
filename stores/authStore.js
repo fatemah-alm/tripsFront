@@ -25,6 +25,7 @@ class AuthStore {
   signin = async (userData, navigation) => {
     try {
       const response = await instance.post("/user/signin", userData);
+      console.log("response", userData);
       const { token } = response.data;
       this.setUser(token);
       navigation.replace("Profile");
