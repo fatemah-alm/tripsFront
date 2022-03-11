@@ -20,7 +20,6 @@ const TripDetails = (h) => {
     tripStore.deleteTrip(trip._id, navigation);
   };
   return (
-    // <Text>hi</Text>
     <SafeAreaView style={styles.container}>
       <VStack style={styles.header}>
         <Image
@@ -31,12 +30,7 @@ const TripDetails = (h) => {
           <Text style={styles.name}>{trip.title}</Text>
           <Text
             style={styles.owner}
-            onPress={() =>
-              navigation.navigate("MyProfile", {
-                screen: "Profile",
-                user: trip.owner.username,
-              })
-            }
+            onPress={() => navigation.navigate("UserProfile", { trip })}
           >
             By: {trip.owner.username}
           </Text>

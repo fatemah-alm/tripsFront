@@ -9,6 +9,7 @@ const AddTrip = ({ navigation }) => {
   const profile = profileStore.profiles.find(
     (profile) => profile._id === authStore.user.profile
   );
+
   const [trip, setTrip] = useState({
     title: "",
     description: "",
