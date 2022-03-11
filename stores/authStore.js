@@ -27,6 +27,8 @@ class AuthStore {
       const response = await instance.post("/user/signin", userData);
       const { token } = response.data;
       this.setUser(token);
+      profileStore.getProfiles();
+
       navigation.replace("Profile");
     } catch (error) {
       console.log(error);
@@ -50,6 +52,9 @@ class AuthStore {
       this.user = decodedToken;
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
       await AsyncStorage.setItem("token2", token);
+      const newUser = await AsyncStorage.getItem("token2");
+      console.log(newUser);
+      console.log("newwwww", this.user);
     } catch (error) {
       console.log(error);
     }
