@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "../Profile";
 import Home from "../Home";
 import TripDetails from "../TripDetails";
+import UserProfile from "../UserProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +24,7 @@ const HomeNavigator = () => {
         component={TripDetails}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="UserProfile" component={Profile} />
+      <Stack.Screen name="UserProfile" component={UserProfile} />
     </Stack.Navigator>
   );
 };

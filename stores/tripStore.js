@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
-
 class TripStore {
   constructor() {
     makeAutoObservable(this);
@@ -65,6 +64,16 @@ class TripStore {
       console.log(error);
     }
   };
+
+  // filterTrips = (trip) => {
+  //   const tripList = this.trips.filter((tripa) => {
+  //     tripa.owner.profile === trip.owner.profile ? (
+  //       <Trip trip={tripa} key={tripa._id} />
+  //     ) : null;
+  //   });
+
+  //   return tripList;
+  // };
 
   likeTrip = async (id) => {
     this.likes.push(id);
