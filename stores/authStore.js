@@ -28,6 +28,8 @@ class AuthStore {
       console.log("response", userData);
       const { token } = response.data;
       this.setUser(token);
+      profileStore.getProfiles();
+
       navigation.replace("Profile");
     } catch (error) {
       console.log(error);
@@ -38,7 +40,7 @@ class AuthStore {
     try {
       instance.defaults.headers.common.Authorization = null;
       this.user = null;
-      AsyncStorage.removeItem("token");
+      AsyncStorage.removeItem("token2");
       navigation.replace("Signin");
     } catch (error) {
       console.log(error);
@@ -50,7 +52,10 @@ class AuthStore {
       const decodedToken = decode(token);
       this.user = decodedToken;
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
-      await AsyncStorage.setItem("token", token);
+      await AsyncStorage.setItem("token2", token);
+      const newUser = await AsyncStorage.getItem("token2");
+      console.log(newUser);
+      console.log("newwwww", this.user);
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +63,7 @@ class AuthStore {
 
   checkForToken = async () => {
     try {
-      const token = await AsyncStorage.getItem("token");
+      const token = await AsyncStorage.getItem("token2");
       if (token) {
         const decodedToken = decode(token);
         if (Date.now() < decodedToken.exp) {

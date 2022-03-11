@@ -19,13 +19,9 @@ const Profile = ({ navigation, route, user }) => {
   // console.log("user", user);
 
   const [owner, setOwner] = useState(user ? user : authStore.user);
-  console.log("owner", owner);
-
   const profile = profileStore.profiles.find(
     (profile) => profile._id == owner.profile._id
   );
-
-  console.log(profile);
 
   if (profileStore.profiles === null) return <Text>Loading...</Text>;
   if (!profile) return <Text>Loading...</Text>;

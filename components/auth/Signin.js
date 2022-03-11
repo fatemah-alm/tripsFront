@@ -7,12 +7,12 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { Button, HStack, VStack } from "native-base";
 import authStore from "../../stores/authStore";
+import { observer } from "mobx-react";
 
 const Signin = ({ navigation }) => {
-  if (authStore.user) navigation.navigate("Profile");
+  if (authStore.user) navigation.replace("Profile");
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -51,7 +51,7 @@ const Signin = ({ navigation }) => {
 
         <HStack justifyContent="center">
           <Text style={styles.text}> Not a user ?</Text>
-          <Pressable onPress={() => navigation.navigate("Signup")}>
+          <Pressable onPress={() => navigation.replace("Signup")}>
             <Text style={styles.link}> Register</Text>
           </Pressable>
         </HStack>
@@ -60,7 +60,7 @@ const Signin = ({ navigation }) => {
   );
 };
 
-export default Signin;
+export default observer(Signin);
 
 const styles = StyleSheet.create({
   container: {

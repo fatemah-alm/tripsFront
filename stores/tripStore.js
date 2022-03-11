@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
-
 class TripStore {
   constructor() {
     makeAutoObservable(this);
@@ -50,10 +49,13 @@ class TripStore {
       console.log("error message", error);
     }
   };
-  deleteTrip = async (id) => {
+  deleteTrip = async (id, navigation) => {
     try {
       this.trips = this.trips.filter((trip) => trip._id !== id);
-      await instance.delete(`/api/trips/${id}`);
+      const response = await instance.delete(`/trips/${id}`);
+      // if (response) {
+      // }
+      navigation.replace("Home");
     } catch (error) {
       console.log(error);
     }
@@ -68,6 +70,17 @@ class TripStore {
       console.log(error);
     }
   };
+
+  // filterTrips = (trip) => {
+  //   const tripList = this.trips.filter((tripa) => {
+  //     tripa.owner.profile === trip.owner.profile ? (
+  //       <Trip trip={tripa} key={tripa._id} />
+  //     ) : null;
+  //   });
+
+  //   return tripList;
+  // };
+
   likeTrip = async (id) => {
     this.likes.push(id);
   };

@@ -1,14 +1,22 @@
 import { SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
 import { Button } from "native-base";
+import { useState } from "react";
 import { HStack, VStack } from "native-base";
 import { baseUrl } from "../stores/instance";
 import { useNavigation } from "@react-navigation/native";
+import tripStore from "../stores/tripStore";
+import authStore from "../stores/authStore";
+import { observer } from "mobx-react";
 
-const TripDetails = ({ route }) => {
-  const { trip } = route.params;
+const TripDetails = (h) => {
+  const { trip } = h.route.params;
+  const [user, setUser] = useState(
+    authStore.user ? authStore.user : { username: "anonymous" }
+  );
   const navigation = useNavigation();
-  console.log("trip owner", trip.owner);
+  const handleDelete = () => {
+    tripStore.deleteTrip(trip._id, navigation);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <VStack style={styles.header}>
@@ -36,7 +44,7 @@ const TripDetails = ({ route }) => {
   );
 };
 
-export default TripDetails;
+export default observer(TripDetails);
 
 const styles = StyleSheet.create({
   container: {
