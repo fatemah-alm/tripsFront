@@ -15,7 +15,7 @@ import * as ImagePicker from "expo-image-picker";
 
 const AddTrip = ({ navigation }) => {
   const profile = profileStore.profiles.find(
-    (profile) => profile._id == authStore.user.profile._id
+    (profile) => profile._id == authStore.user.profile
   );
 
   const [trip, setTrip] = useState({

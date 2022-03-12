@@ -20,7 +20,7 @@ const EditProfile = ({ navigation }) => {
   const [user, setUser] = useState(authStore.user);
 
   const [profile, setProfile] = useState(
-    profileStore.profiles.find((profile) => profile._id == user.profile._id)
+    profileStore.profiles.find((profile) => profile._id == user.profile)
   );
   const [updatedProfile, setUpdatedProfile] = useState({
     bio: profile.bio,

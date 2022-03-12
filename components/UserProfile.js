@@ -5,19 +5,16 @@ import { baseUrl } from "../stores/instance";
 import profileStore from "../stores/profileStore";
 import { observer } from "mobx-react";
 import tripStore from "../stores/tripStore";
-// import Trip from "./Trip";
+import Trip from "./Trip";
 
 const Profile = ({ route }) => {
   const { trip } = route.params;
-  const tripList = tripStore.filterTrips(trip);
+  const tripList = tripStore.trips
+    .filter((tripa) => trip.owner._id === tripa.owner._id)
+    .map((trip) => {
+      return <Trip trip={trip} key={trip._id} />;
+    });
 
-  //   const tripList = tripStore.trips.filter((tripa) => {
-  //     tripa.owner.profile == trip.owner.profile ? (
-  //       <Trip trip={tripa} key={tripa._id} />
-  //     ) : null;
-  //   });
-
-  console.log("Liiiist", tripList);
   const profile = profileStore.profiles.find(
     (profile) => profile._id == trip.owner.profile
   );

@@ -12,16 +12,28 @@ import authStore from "../stores/authStore";
 import { baseUrl } from "../stores/instance";
 import profileStore from "../stores/profileStore";
 import { observer } from "mobx-react";
-import TripsList from "./TripsList";
+import Trip from "./Trip";
+import tripStore from "../stores/tripStore";
+const Profile = ({ navigation, user }) => {
+  console.log("?????????????");
 
-const Profile = ({ navigation, route, user }) => {
   // const user = route.params.user;
   // console.log("user", user);
 
   const [owner, setOwner] = useState(user ? user : authStore.user);
+
   const profile = profileStore.profiles.find(
-    (profile) => profile._id == owner.profile._id
+    (profile) => profile._id == owner.profile
   );
+  console.log(">>><<<<>", profile);
+  console.log(">>><<???<<>", owner.profile);
+
+  const tripList = profile.trips
+    ? profile.trips.map((trip) => {
+        const trp = tripStore.trips.find((trip1) => trip1._id === trip); // bcz not populated
+        return <Trip trip={trp} key={trp._id} />;
+      })
+    : [];
 
   if (profileStore.profiles === null) return <Text>Loading...</Text>;
   if (!profile) return <Text>Loading...</Text>;
@@ -66,7 +78,8 @@ const Profile = ({ navigation, route, user }) => {
       </VStack>
       {/* <Text>{profile.image}</Text> */}
       <View flex={1}>
-        <TripsList owner={profile} />
+        {/* <TripsList owner={profile} /> */}
+        <View style={styles.scroll}>{tripList}</View>
       </View>
     </ScrollView>
   );
