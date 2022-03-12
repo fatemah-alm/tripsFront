@@ -28,18 +28,20 @@ const TripDetails = (h) => {
           <Text style={styles.name}>{trip.title}</Text>
           <Text
             style={styles.owner}
-            onPress={() =>
-              navigation.navigate("UserProfile", { user: trip.owner })
-            }
+            onPress={() => navigation.navigate("UserProfile", { trip })}
           >
             By: {trip.owner.username}
           </Text>
           <Text style={styles.desc}>{trip.description}</Text>
         </VStack>
+        <HStack>
+          {trip.owner.username === user.username ? (
+            <Button colorScheme="amber" m={1} flex={1} onPress={handleDelete}>
+              Delete Trip
+            </Button>
+          ) : null}
+        </HStack>
       </VStack>
-      {/* <View style={styles.body}>
-        <ProductList products={shop.products} />
-      </View> */}
     </SafeAreaView>
   );
 };

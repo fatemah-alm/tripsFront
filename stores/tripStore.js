@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
 import Trip from "../components/Trip";
+import profileStore from "./profileStore";
 class TripStore {
   constructor() {
     makeAutoObservable(this);
@@ -50,10 +51,12 @@ class TripStore {
       console.log("error message", error);
     }
   };
+
   deleteTrip = async (id, navigation) => {
     try {
       this.trips = this.trips.filter((trip) => trip._id !== id);
       const response = await instance.delete(`/trips/${id}`);
+      profileStore.getProfiles();
       // if (response) {
       // }
       navigation.replace("Home");
