@@ -16,7 +16,6 @@ import Trip from "./Trip";
 import tripStore from "../stores/tripStore";
 const Profile = ({ navigation, user }) => {
   console.log("?????????????");
-
   // const user = route.params.user;
   // console.log("user", user);
 
@@ -25,9 +24,7 @@ const Profile = ({ navigation, user }) => {
   const profile = profileStore.profiles.find(
     (profile) => profile._id == owner.profile
   );
-  console.log(">>><<<<>", profile);
-  console.log(">>><<???<<>", owner.profile);
-
+  console.log(">><<", owner);
   const tripList = profile.trips
     ? profile.trips.map((trip) => {
         const trp = tripStore.trips.find((trip1) => trip1._id === trip); // bcz not populated
@@ -69,7 +66,7 @@ const Profile = ({ navigation, user }) => {
               colorScheme="amber"
               m={1}
               flex={1}
-              onPress={() => navigation.navigate("EditProfile")}
+              onPress={() => navigation.replace("EditProfile")}
             >
               Edit Profile
             </Button>

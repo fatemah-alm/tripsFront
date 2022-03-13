@@ -16,6 +16,8 @@ class AuthStore {
       const { token } = response.data;
       this.setUser(token);
       await profileStore.getProfiles();
+      console.log("number1", profileStore.profiles);
+      console.log("number2", this.user);
       navigation.replace("Profile");
     } catch (error) {
       console.log(error);
@@ -28,6 +30,7 @@ class AuthStore {
       console.log("response", userData);
       const { token } = response.data;
       this.setUser(token);
+
       await profileStore.getProfiles();
 
       navigation.replace("Profile");
