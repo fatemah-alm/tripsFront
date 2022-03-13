@@ -17,6 +17,10 @@ const TripDetails = (h) => {
   const handleDelete = () => {
     tripStore.deleteTrip(trip._id, navigation);
   };
+
+  const handleUpdate = () => {
+    navigation.replace("EditTrip", { trip });
+  };
   return (
     <SafeAreaView style={styles.container}>
       <VStack style={styles.header}>
@@ -38,6 +42,11 @@ const TripDetails = (h) => {
           {trip.owner.username === user.username ? (
             <Button colorScheme="amber" m={1} flex={1} onPress={handleDelete}>
               Delete Trip
+            </Button>
+          ) : null}
+          {trip.owner.username === user.username ? (
+            <Button colorScheme="amber" m={1} flex={1} onPress={handleUpdate}>
+              Update Trip
             </Button>
           ) : null}
         </HStack>

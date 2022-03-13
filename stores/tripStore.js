@@ -33,6 +33,8 @@ class TripStore {
         }
       );
       this.trips.push(response.data);
+      await profileStore.getProfiles();
+
       navigation.goBack();
     } catch (error) {
       console.log(
@@ -64,12 +66,31 @@ class TripStore {
       console.log(error);
     }
   };
-  updateTrip = async (updatedTrip, id) => {
+  updateTrip = async (updatedTrip, uploadedImage, id, navigation) => {
     try {
-      const res = await instance.put(`/api/trips/${id}`, updatedTrip);
+      console.log("!!!!!!", updatedTrip);
+      const formData = new FormData();
+      for (const key in updatedTrip) formData.append(key, updatedTrip[key]);
+      if (uploadedImage) {
+        formData.append("image", {
+          type: uploadedImage.type,
+          uri: uploadedImage.uri,
+          name: uploadedImage.uri.split("/").pop(),
+        });
+      }
+      const res = await instance.put(`/trips/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        transformRequest: (data, headers) => {
+          return formData; // this is doing the trick
+        },
+      });
       this.trips = this.trips.map((trip) =>
-        trip._id === id ? res.data : trip
+        trip._id === id ? res.data.payload : trip
       );
+      await profileStore.getProfiles();
+      navigation.goBack();
     } catch (error) {
       console.log(error);
     }
