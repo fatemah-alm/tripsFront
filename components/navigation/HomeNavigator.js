@@ -5,6 +5,7 @@ import Profile from "../Profile";
 import Home from "../Home";
 import TripDetails from "../TripDetails";
 import UserProfile from "../UserProfile";
+import EditTrip from "../EditTrip";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,11 @@ const HomeNavigator = () => {
         name="Trip"
         component={TripDetails}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EditTrip"
+        component={EditTrip}
+        // options={{ headerShown: false }}
       />
       <Stack.Screen name="UserProfile" component={UserProfile} />
     </Stack.Navigator>
